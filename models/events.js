@@ -1,4 +1,5 @@
-
+const db = require('./connection');
+const bcrypt = require('bcryptjs');
 //need to figure out how to insert userID into table
 async function createUser ( userName, password, firstName, lastName, email ){
     const hash = createHash(password);
@@ -12,4 +13,9 @@ async function createUser ( userName, password, firstName, lastName, email ){
     console.log(`user_id = ${result.user_id}`);
     return result.user_id;
 
+};
+
+function createHash(password) {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
 };
